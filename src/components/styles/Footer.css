@@ -1,0 +1,28 @@
+footer {
+    width: 100%;
+    background-color: var(--scan-green);
+}
+
+.footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 137px;
+    max-width: 1440px;
+    padding: 0 60px;
+    margin: 0 auto; 
+}
+
+.address {
+    text-align: right;
+    line-height: 0.1;
+    color: var(--scan-white);
+}
+
+@media (max-width: 1360px) {
+
+    .footer {
+        max-width: 375px;
+        padding: 0 20px;
+    }
+}
