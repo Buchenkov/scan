@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useAuth } from '../../context/AuthContext'; // Adjust the import path as necessary
+import { useAuth } from '../../context/AuthContext'; 
 
-import './Authorization.css';
+import '../styles/Authorization.css';
 import icon_facebook from "../../assets/icon_facebook.svg";
 import icon_google from "../../assets/icon_google.svg";
 import icon_lock from "../../assets/icon_lock.svg";
@@ -15,7 +15,7 @@ const Authorization = () => {
   const [usernameError, setUsernameError] = useState(false);
   const [passwordError, setPasswordError] = useState(false);
   const navigate = useNavigate();
-  const { isLoggedIn, setIsLoggedIn } = useAuth(); // Corrected line
+  const { isLoggedIn, setIsLoggedIn } = useAuth();
 
   useEffect(() => {
     if (isLoggedIn) {
