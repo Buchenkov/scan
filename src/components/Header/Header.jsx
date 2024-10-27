@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useMemo, useCallback } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import Navbar from './Navbar/Navbar';
 import UserBlock from './UserBlock/UserBlock';
 import { useAuth } from '../../context/AuthContext';
@@ -20,9 +20,11 @@ const Header = React.memo(({ isLoggedIn, userName, userPicture, setUserName, set
   }, [isMenuVisible]);
 
   const navigate = useNavigate();
+  const location = useLocation();
+
   const handleLoginClick = useCallback(() => {
-    navigate('/auth');
-  }, [navigate]);
+    navigate('/auth', { state: { from: location.pathname } });
+  }, [navigate, location.pathname]);
 
   const handleLoginAndCloseMenu = useCallback(() => {
     handleLoginClick();
@@ -77,18 +79,17 @@ const Header = React.memo(({ isLoggedIn, userName, userPicture, setUserName, set
   }, [isLoggedIn, userName, userPicture, setUserName, setUserPicture, isMenuVisible, isMobile]);
 
   return (
-    <header className={isMenuVisible && isMobile ? 'menu-visible' : ''}>
+    <header className={`header ${isMenuVisible && isMobile ? 'menu-visible' : ''}`}>
       <div className="header-content">
-        <img className="logotip" src={isMenuVisible && isMobile ? logotip : logotipG} alt="logotip" />
+        <img className="logotip" src={isMenuVisible && isMobile ? logotip : logotipG} alt="Логотип" />
         {!isMobile && <Navbar />}
         {renderUserBlock}
         {isMobile && (
           <img
             src={isMenuVisible ? close_icon : fallout_menu_icon}
-            alt="Menu"
+            alt={isMenuVisible ? 'Закрыть меню' : 'Открыть меню'}
             className="menu-icon"
             onClick={toggleMenuVisibility}
-            aria-label={isMenuVisible ? 'Закрыть меню' : 'Открыть меню'}
           />
         )}
         {!isLoggedIn && !isMobile && (
