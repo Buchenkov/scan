@@ -49,6 +49,7 @@ const SearchResults = () => {
       }
 
       const histogramData = await histogramResponse.json();
+
       const publicationIdsResponse = await fetch('https://gateway.scan-interfax.ru/api/v1/objectsearch', {
         method: 'POST',
         headers: {
@@ -67,6 +68,13 @@ const SearchResults = () => {
       const publicationIds = publicationIdsData.items.map(item => item.encodedId);
       console.log("количество публикаций:", publicationIds.length);
 
+      if (publicationIds.length === 0) {
+        console.error('No publication IDs found.');
+        setIsError(true);
+        setIsLoading(false);
+        return;
+      }
+
       const documentsResponse = await fetch('https://gateway.scan-interfax.ru/api/v1/documents', {
         method: 'POST',
         headers: {
@@ -76,6 +84,10 @@ const SearchResults = () => {
         body: JSON.stringify({ ids: publicationIds }),
         credentials: 'omit',
       });
+
+      console.log("DOCUMENT - ", documentsResponse);
+      console.log("PUBLICATION IDS - ", publicationIdsData);
+      console.log("publicationIds IDS - ", publicationIds);
 
       if (!documentsResponse.ok) {
         throw new Error(`HTTP error! status: ${documentsResponse.status}`);
@@ -126,6 +138,7 @@ const SearchResults = () => {
 };
 
 export default SearchResults;
+
 
 
 // 1. Импорты
