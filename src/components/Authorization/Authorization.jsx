@@ -116,7 +116,7 @@ const Authorization = () => {
                 name="password"
                 value={password}
                 onChange={handlePasswordChange}
-                autocomplete="current-password" 
+                autoComplete="current-password" 
                 required
                 style={{ borderColor: passwordError ? 'red' : '' }}
               />
